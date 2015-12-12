@@ -3,7 +3,7 @@
 ## Images processing shell
 
 This is the educational project for image processing with implementation of
-several [algorithms](#algo) in C for Win MinGW. All algorithms are scriptable in SIOD Scheme,
+several [algorithms](#algo) in C for MinGW on Win32. All algorithms are scriptable in SIOD Scheme,
 so main program - imsh - is the SIOD Scheme shell with C algorithms in backend.
 
 To build use command:
@@ -20,7 +20,7 @@ or only one test:
 
 `make test4`
 
-So, each test is Scheme script, for example:
+Each test is Scheme script, for example:
 
 ```scheme
 (load "imsh.scm")
@@ -48,5 +48,9 @@ So, each test is Scheme script, for example:
 ## Credits
 
 Imsh uses FreeImage library: http://freeimage.sourceforge.net
+
+Also Imsh uses SIOD Scheme: http://people.delphiforums.com/gjc/siod.html
+
+## Another repo
 
 Original code is: http://chiselapp.com/user/p4v31/repository/imsh/home
