@@ -3,7 +3,7 @@
 ## Images processing shell
 
 This is the educational project for image processing with implementation of
-several [algorithms][#algo] in C for Win MinGW. All algorithms are scriptable in SIOD Scheme,
+several [algorithms](#algo) in C for Win MinGW. All algorithms are scriptable in SIOD Scheme,
 so main program - imsh - is the SIOD Scheme shell with C algorithms in backend.
 
 To build use command:
