@@ -1,9 +1,9 @@
-# &#2605; Imsh
+# Imsh
 
 ## IMages processing SHell
 
 This is the educational project for image processing with implementation of
-several [algorithms](http://htmlpreview.github.com/?https://github.com/bapcyk/imsh/blob/master/src/algolist.html) in C for MinGW on Win32. All algorithms are scriptable in SIOD Scheme,
+different [ALGORITHMS](http://htmlpreview.github.com/?https://github.com/bapcyk/imsh/blob/master/src/algolist.html) in C for MinGW on Win32. All algorithms are scriptable in SIOD Scheme,
 so main program - imsh - is the SIOD Scheme shell with C algorithms in backend.
 
 To build use command:
@@ -43,7 +43,8 @@ Each test is Scheme script, for example:
 * Erode
 * Set (binary image) operations
 * Morphological edge detection
-* Dithering 
+* Dithering
+* etc. (see imsh.c) 
 
 ## Credits
 
