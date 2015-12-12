@@ -1,0 +1,7 @@
+This test makes dilation and erosion.
+
+Dilation is - application of structural element (like kernel in c.m.)
+on binary image to get more "fat" image. See more <a href="http://en.wikipedia.org/wiki/Dilation_%28morphology%29">here</a>.
+
+Erosion is - application of structural element (like kernel in c.m.)
+on binary image to get more "thick" image. See more <a href="http://en.wikipedia.org/wiki/Erosion_%28morphology%29">here</a>.

@@ -1,0 +1,2 @@
+This test runs edge detection with c.m. too, but image is converted
+to black-and-white first.

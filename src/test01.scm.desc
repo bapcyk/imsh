@@ -1,0 +1,6 @@
+This very simple test demonstrates grey scale and negative of input images.
+Grey scaling calculate length of RGB vector then constructs vector with
+the same length but R, G, B components have the same length each.
+
+Negative uses fact that max R, G, or B value is 255 and calculates
+difference between color component and 255.

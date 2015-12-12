@@ -1,0 +1,5 @@
+This filter is based on c.m. filter also but instead of calculate
+central point in filter window (in aperture) with special formula, it's sort
+all points and use central point of sorted points and central point of window.
+So, if there is big impulse in window's central point then it will be replaced
+by "median" point. It's good to filter "salt and piper" noise. 

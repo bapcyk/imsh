@@ -1,0 +1,2 @@
+This test converts input image to black-and-white then applies dilation
+matrix (which is c.m. too).

@@ -1,0 +1,15 @@
+It's classical image processing method: applying of 2D filter on each pixel.
+More about convolution matrix read: <a href="http://docs.gimp.org/en/plug-in-convmatrix.html">this</a>.
+Main idea is the same as in other filters: each original samples gives some
+value to common result but all of thees values has different amount which depend
+of filter formula.
+
+There are 2 main notes on this filter. First: no recursion, so original pixels
+(samples) - are real original and temporary clean copy of original image should
+be allocated and used for calculation. Second: normalization of result is need.
+Result is divided by special value (div) and shifted by another (shift or bias).
+And if now it's lesser then 0, 0 should be used instead of, if bigger then 255,
+255 should be placed as result. 
+
+This test uses convolution matrix to implement emboss filter. Other tests use
+c.m. for other goals.

@@ -1,0 +1,3 @@
+This test uses convolution matrix to implement edge detection of image.
+There are different algorithms for edge detection also, not only based
+on c.m.

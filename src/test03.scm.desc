@@ -1,0 +1,5 @@
+This is also simple algorithm which applies color mask on image:
+with 3 bits user select one of 3 channels (R, G, B) to show, other
+will be hidden. This looks like broken TV when picture is blown in
+some color (green often). For example, bits "3" means "011", i.e.
+R channel will be hidden, G, B - shown.

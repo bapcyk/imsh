@@ -17,7 +17,7 @@ test%: imsh
 .PHONY: all
 all: test algolist.html
 
-algolist.html:
+algolist.html: algolist.awk *.desc
 	ls -1 test*.scm|awk -v rooturl=https://github.com/bapcyk/imsh/blob/master/src -f algolist.awk > $@
 
 .PHONY: test

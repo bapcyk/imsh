@@ -1,0 +1,6 @@
+Dithering is the algorithm for preparing of image to black-white printing (old
+newspapers, old books) or for old displays systems. Here is 2 different
+implementations:
+
+  * general purpose with using of matrixes defined in imsh.scm library
+  * special dithering algorithms. 

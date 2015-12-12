@@ -1,0 +1,5 @@
+This test implements converting to grey levels with custom number
+of levels. Resulting image looks like picture from Windows 3.1 -
+colors are approximated with grey levels only. When there are only
+2 levels, all looks like black-and-white image, more levels show
+more realistic graduations of colors.

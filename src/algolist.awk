@@ -8,7 +8,8 @@ BEGIN {
         "called from SIOD scripts (test*.scm) which produce ",
         "some output images in out/* directory. To see input ",
         "images, click on links of <b>Input images</b> section ",
-        "after each algorithm, the same is for <b>Output images</b>"
+        "after each algorithm, the same is for <b>Output images</b>. ",
+        "C code is very simple and does not target perfomance goals."
 }
 
 {
@@ -50,5 +51,9 @@ BEGIN {
 }
 
 END {
-      print "</body></html>"
+      print "<div style=\"text-align:center;margin:30px;font:7pt Arial;color:grey\"><i>",
+            strftime("%c"), "<br/>",
+            "&copy;6 a p c y k",
+            "</i></div>",
+            "</body></html>"
 }

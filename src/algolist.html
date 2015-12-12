@@ -3,15 +3,19 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8"><title>Implemented Algorithms</title></head>
 <body><h1>Algorithms list</h1>
-All base algorithm blocks are written in C and are  called from SIOD scripts (test*.scm) which produce  some output images in out/* directory. To see input  images, click on links of <b>Input images</b> section  after each algorithm, the same is for <b>Output images</b>
+All base algorithm blocks are written in C and are  called from SIOD scripts (test*.scm) which produce  some output images in out/* directory. To see input  images, click on links of <b>Input images</b> section  after each algorithm, the same is for <b>Output images</b>.  C code is very simple and does not target perfomance goals.
 <div style="padding-left:5px;background:brown;color:white;font-family:Courier">
 <h2>Algorithm  1 </h2>
 </div>
 <div style="font:10pt monospace">
-Privet <br/>
-2222 <br/>
+This very simple test demonstrates grey scale and negative of input images. <br/>
+Grey scaling calculate length of RGB vector then constructs vector with <br/>
+the same length but R, G, B components have the same length each. <br/>
+ <br/>
+Negative uses fact that max R, G, or B value is 255 and calculates <br/>
+difference between color component and 255. <br/>
 <br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test1.scm </span>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test01.scm </span>
 (define b (img_open "in/ngirl.jpg"))
 (img_gr b)
 (img_neg b)
@@ -24,6 +28,173 @@ Privet <br/>
 <h2>Algorithm  2 </h2>
 </div>
 <div style="font:10pt monospace">
+It's classical image processing method: applying of 2D filter on each pixel. <br/>
+More about convolution matrix read: <a href="http://docs.gimp.org/en/plug-in-convmatrix.html">this</a>. <br/>
+Main idea is the same as in other filters: each original samples gives some <br/>
+value to common result but all of thees values has different amount which depend <br/>
+of filter formula. <br/>
+ <br/>
+There are 2 main notes on this filter. First: no recursion, so original pixels <br/>
+(samples) - are real original and temporary clean copy of original image should <br/>
+be allocated and used for calculation. Second: normalization of result is need. <br/>
+Result is divided by special value (div) and shifted by another (shift or bias). <br/>
+And if now it's lesser then 0, 0 should be used instead of, if bigger then 255, <br/>
+255 should be placed as result.  <br/>
+ <br/>
+This test uses convolution matrix to implement emboss filter. Other tests use <br/>
+c.m. for other goals. <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test02.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_conv b emboss-matrix emboss-div emboss-shift)
+(img_save b "out/emboss.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/emboss.jpg">out/emboss.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  3 </h2>
+</div>
+<div style="font:10pt monospace">
+This is also simple algorithm which applies color mask on image: <br/>
+with 3 bits user select one of 3 channels (R, G, B) to show, other <br/>
+will be hidden. This looks like broken TV when picture is blown in <br/>
+some color (green often). For example, bits "3" means "011", i.e. <br/>
+R channel will be hidden, G, B - shown. <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test03.scm </span>
+(define b (img_open "in/ngirl.jpg"))
+(img_ch b 3)
+(img_save b "out/ch.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/ch.jpg">out/ch.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  4 </h2>
+</div>
+<div style="font:10pt monospace">
+This test uses convolution matrix to implement edge detection of image. <br/>
+There are different algorithms for edge detection also, not only based <br/>
+on c.m. <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test04.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_conv b edge-matrix 3 60)
+(img_save b "out/edge.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/edge.jpg">out/edge.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  5 </h2>
+</div>
+<div style="font:10pt monospace">
+This test implements converting to grey levels with custom number <br/>
+of levels. Resulting image looks like picture from Windows 3.1 - <br/>
+colors are approximated with grey levels only. When there are only <br/>
+2 levels, all looks like black-and-white image, more levels show <br/>
+more realistic graduations of colors. <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test05.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_grl b 6)
+(img_save b "out/grl.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/grl.jpg">out/grl.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  6 </h2>
+</div>
+<div style="font:10pt monospace">
+This test runs edge detection with c.m. too, but image is converted <br/>
+to black-and-white first. <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test06.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_bw b 50)
+(img_conv b edge-matrix 3 40)
+(img_save b "out/bwedge.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/bwedge.jpg">out/bwedge.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  7 </h2>
+</div>
+<div style="font:10pt monospace">
+This test converts input image to black-and-white then applies dilation <br/>
+matrix (which is c.m. too). <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test07.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_bw b 60)
+(img_conv b dilat-matrix dilat-div dilat-shift)
+(img_conv b dilat-matrix dilat-div dilat-shift)
+(img_save b "out/dilat2.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/dilat2.jpg">out/dilat2.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  8 </h2>
+</div>
+<div style="font:10pt monospace">
+This test runs pixalization. Main idea is to cut original image on squares with <br/>
+some side and to replace pixels of this squared area with one-color square. <br/>
+Which color to use? If black and white version is applied then result color is <br/>
+calculated like in Black-and-White filter with threshold = 50%. If color <br/>
+version of pixalization is applied, then average color of squared area is used. <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test08.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_pix b 10 1)
+(img_save b "out/pix1.jpg")
+
+(define b (img_open "in/ngirl.jpg"))
+(img_pix b 5 0)
+(img_save b "out/pix2.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/pix2.jpg">out/pix2.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/pix1.jpg">out/pix1.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  9 </h2>
+</div>
+<div style="font:10pt monospace">
+This filter is based on c.m. filter also but instead of calculate <br/>
+central point in filter window (in aperture) with special formula, it's sort <br/>
+all points and use central point of sorted points and central point of window. <br/>
+So, if there is big impulse in window's central point then it will be replaced <br/>
+by "median" point. It's good to filter "salt and piper" noise.  <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test09.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_med b 9)
+(img_save b "out/med.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/med.jpg">out/med.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  10 </h2>
+</div>
+<div style="font:10pt monospace">
+This test makes dilation and erosion. <br/>
+ <br/>
+Dilation is - application of structural element (like kernel in c.m.) <br/>
+on binary image to get more "fat" image. See more <a href="http://en.wikipedia.org/wiki/Dilation_%28morphology%29">here</a>. <br/>
+ <br/>
+Erosion is - application of structural element (like kernel in c.m.) <br/>
+on binary image to get more "thick" image. See more <a href="http://en.wikipedia.org/wiki/Erosion_%28morphology%29">here</a>. <br/>
 <br/></div>
 <div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test10.scm </span>
 (define b1 (img_open "in/foo.jpg"))
@@ -63,9 +234,10 @@ Privet <br/>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/in/foo.jpg">in/foo.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/in/boo.jpg">in/boo.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/out/binerode.jpg">out/binerode.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/bindilate.jpg">out/bindilate.jpg</a>, <br/>
 <div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  3 </h2>
+<h2>Algorithm  11 </h2>
 </div>
 <div style="font:10pt monospace">
+This test runs dilation and erosion too, but on more complex input image. <br/>
 <br/></div>
 <div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test11.scm </span>
 (define b (img_open "in/thing.jpg"))
@@ -110,9 +282,12 @@ Privet <br/>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/in/thing.jpg">in/thing.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/out/open.jpg">out/open.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/close.jpg">out/close.jpg</a>, <br/>
 <div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  4 </h2>
+<h2>Algorithm  12 </h2>
 </div>
 <div style="font:10pt monospace">
+This test runs edge-detection algorithm with c.m. on bold weight font. <br/>
+Result looks interesting and with coloring can get base for neon effect <br/>
+(need also shadowing) <br/>
 <br/></div>
 <div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test12.scm </span>
 (load "imsh.scm")
@@ -126,9 +301,10 @@ Privet <br/>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/in/boo.jpg">in/boo.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/out/booedge.jpg">out/booedge.jpg</a>, <br/>
 <div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  5 </h2>
+<h2>Algorithm  13 </h2>
 </div>
 <div style="font:10pt monospace">
+This test shows set operations but on image: OR, XOR, AND, NOT, SUB (complement). <br/>
 <br/></div>
 <div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test13.scm </span>
 (define b1 (img_open "in/a.jpg"))
@@ -168,9 +344,11 @@ Privet <br/>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/in/a.jpg">in/a.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/in/b.jpg">in/b.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/out/or.jpg">out/or.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/xor.jpg">out/xor.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/and.jpg">out/and.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/not.jpg">out/not.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/sub.jpg">out/sub.jpg</a>, <br/>
 <div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  6 </h2>
+<h2>Algorithm  14 </h2>
 </div>
 <div style="font:10pt monospace">
+Edges can be detected also with morphological operations. Edge := IMG0 `sub` ERODE(IMG0). <br/>
+SUB - is substraction/complements. <br/>
 <br/></div>
 <div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test14.scm </span>
 (define b1 (img_open "in/boo.jpg"))
@@ -188,9 +366,15 @@ Privet <br/>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/in/boo.jpg">in/boo.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/out/morphedge.jpg">out/morphedge.jpg</a>, <br/>
 <div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  7 </h2>
+<h2>Algorithm  15 </h2>
 </div>
 <div style="font:10pt monospace">
+Dithering is the algorithm for preparing of image to black-white printing (old <br/>
+newspapers, old books) or for old displays systems. Here is 2 different <br/>
+implementations: <br/>
+ <br/>
+  * general purpose with using of matrixes defined in imsh.scm library <br/>
+  * special dithering algorithms.  <br/>
 <br/></div>
 <div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test15.scm </span>
 (load "imsh.scm")
@@ -250,122 +434,4 @@ Privet <br/>
 <span style="color:brown;font:10pt Arial">Input images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/in/stalin.jpg">in/stalin.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
 <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_sierra.jpg">out/dithgen_sierra.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_atkinson.jpg">out/dith_atkinson.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_floyd.jpg">out/dithgen_floyd.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_ordered.jpg">out/dith_ordered.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_falsefloyd.jpg">out/dithgen_falsefloyd.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_sierralow.jpg">out/dithgen_sierralow.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_random.jpg">out/dith_random.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_stucki.jpg">out/dithgen_stucki.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_sierra2.jpg">out/dithgen_sierra2.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_burkes.jpg">out/dithgen_burkes.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_jarvis.jpg">out/dithgen_jarvis.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_floyd.jpg">out/dith_floyd.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_atkinson.jpg">out/dithgen_atkinson.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  8 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test2.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_conv b emboss-matrix emboss-div emboss-shift)
-(img_save b "out/emboss.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/emboss.jpg">out/emboss.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  9 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test3.scm </span>
-(define b (img_open "in/ngirl.jpg"))
-(img_ch b 3)
-(img_save b "out/ch.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/ch.jpg">out/ch.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  10 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test4.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_conv b edge-matrix 3 60)
-(img_save b "out/edge.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/edge.jpg">out/edge.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  11 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test5.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_grl b 6)
-(img_save b "out/grl.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/grl.jpg">out/grl.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  12 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test6.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_bw b 50)
-(img_conv b edge-matrix 3 40)
-(img_save b "out/bwedge.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/bwedge.jpg">out/bwedge.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  13 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test7.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_bw b 60)
-(img_conv b dilat-matrix dilat-div dilat-shift)
-(img_conv b dilat-matrix dilat-div dilat-shift)
-(img_save b "out/dilat2.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/dilat2.jpg">out/dilat2.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  14 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test8.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_pix b 10 1)
-(img_save b "out/pix1.jpg")
-
-(define b (img_open "in/ngirl.jpg"))
-(img_pix b 5 0)
-(img_save b "out/pix2.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/pix2.jpg">out/pix2.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/pix1.jpg">out/pix1.jpg</a>, <br/>
-<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
-<h2>Algorithm  15 </h2>
-</div>
-<div style="font:10pt monospace">
-<br/></div>
-<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test9.scm </span>
-(load "imsh.scm")
-(define b (img_open "in/ngirl.jpg"))
-(img_med b 9)
-(img_save b "out/med.jpg")
-</div><br/>
-<span style="color:brown;font:10pt Arial">Input images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
-<a href="https://github.com/bapcyk/imsh/blob/master/src/out/med.jpg">out/med.jpg</a>, <br/>
-</body></html>
+<div style="text-align:center;margin:30px;font:7pt Arial;color:grey"><i> Sat Dec 12 18:14:33 2015 <br/> &copy;6 a p c y k </i></div> </body></html>

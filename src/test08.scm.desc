@@ -1,0 +1,5 @@
+This test runs pixalization. Main idea is to cut original image on squares with
+some side and to replace pixels of this squared area with one-color square.
+Which color to use? If black and white version is applied then result color is
+calculated like in Black-and-White filter with threshold = 50%. If color
+version of pixalization is applied, then average color of squared area is used.

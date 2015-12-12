@@ -1,0 +1,2 @@
+Edges can be detected also with morphological operations. Edge := IMG0 `sub` ERODE(IMG0).
+SUB - is substraction/complements.
