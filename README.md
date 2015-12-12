@@ -1,6 +1,6 @@
-# imsh
+# &#2605; Imsh
 
-## Images processing shell
+## IMages processing SHell
 
 This is the educational project for image processing with implementation of
 several [algorithms](http://htmlpreview.github.com/?https://github.com/bapcyk/imsh/blob/master/src/algolist.html) in C for MinGW on Win32. All algorithms are scriptable in SIOD Scheme,

@@ -3,6 +3,7 @@ CC = gcc
 SIOD_OBJS = siod/slib.o siod/sliba.o siod/trace.o
 SIOD_LIB = siod/libsiod.a
 CFLAGS = -Isiod -I.
+REPO_ROOT = https://github.com/bapcyk/imsh/blob/master/src
 
 $(SIOD_LIB): $(SIOD_OBJS)
 	ar rcs -o $(SIOD_LIB) $?
@@ -18,7 +19,7 @@ test%: imsh
 all: test algolist.html
 
 algolist.html: algolist.awk *.desc
-	ls -1 test*.scm|awk -v rooturl=https://github.com/bapcyk/imsh/blob/master/src -f algolist.awk > $@
+	ls -1 test*.scm|awk -v rooturl=$(REPO_ROOT) -f algolist.awk > $@
 
 .PHONY: test
 tests = $(wildcard test[0-9]*.scm)
