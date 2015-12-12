@@ -14,6 +14,12 @@ test%: imsh
 	@echo ">>> Do $@.scm..."
 	@./imsh $@.scm
 
+.PHONY: all
+all: test algolist.html
+
+algolist.html:
+	ls -1 test*.scm|awk -v rooturl=https://github.com/bapcyk/imsh/blob/master/src -f algolist.awk > $@
+
 .PHONY: test
 tests = $(wildcard test[0-9]*.scm)
 test: imsh

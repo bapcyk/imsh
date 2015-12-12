@@ -3,7 +3,7 @@
 ## Images processing shell
 
 This is the educational project for image processing with implementation of
-several [algorithms](#algo) in C for MinGW on Win32. All algorithms are scriptable in SIOD Scheme,
+several [algorithms](src/algolist.html) in C for MinGW on Win32. All algorithms are scriptable in SIOD Scheme,
 so main program - imsh - is the SIOD Scheme shell with C algorithms in backend.
 
 To build use command:
@@ -24,7 +24,7 @@ Each test is Scheme script, for example:
 
 ```scheme
 (load "imsh.scm")
-(define b (bmp_open "ngirl.bmp"))
+(define b (bmp_open "in/ngirl.bmp"))
 (bmp_conv b emboss-matrix emboss-div emboss-shift)
 (bmp_save b "out/emboss.bmp")
 ```

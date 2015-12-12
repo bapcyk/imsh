@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Implemented Algorithms</title></head>
+<body><h1>Algorithms list</h1>
+All base algorithm blocks are written in C and are  called from SIOD scripts (test*.scm) which produce  some output images in out/* directory. To see input  images, click on links of <b>Input images</b> section  after each algorithm, the same is for <b>Output images</b>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  1 </h2>
+</div>
+<div style="font:10pt monospace">
+Privet <br/>
+2222 <br/>
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test1.scm </span>
+(define b (img_open "in/ngirl.jpg"))
+(img_gr b)
+(img_neg b)
+(img_save b "out/gr.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/gr.jpg">out/gr.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  2 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test10.scm </span>
+(define b1 (img_open "in/foo.jpg"))
+(img_bw b1 50)
+
+(define matrix1 '(1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1 1 1))
+
+(define matrix2 '(1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1
+                  1 1 1 1 1 1 1 1 1))
+
+(img_bindilate b1 matrix1)
+(img_save b1 "out/bindilate.jpg")
+
+(define b2 (img_open "in/boo.jpg"))
+(img_bw b1 50)
+(img_binerode b2 matrix2)
+(img_save b2 "out/binerode.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/foo.jpg">in/foo.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/in/boo.jpg">in/boo.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/binerode.jpg">out/binerode.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/bindilate.jpg">out/bindilate.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  3 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test11.scm </span>
+(define b (img_open "in/thing.jpg"))
+(img_bw b 50)
+
+(define matrix '(1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1))
+
+(img_binerode b matrix)
+(img_bindilate b matrix)
+(img_save b "out/open.jpg")
+
+(define b (img_open "in/thing.jpg"))
+(img_bw b 50)
+
+(define matrix '(1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1
+                 1 1 1 1 1 1 1 1 1 1 1))
+
+(img_bindilate b matrix)
+(img_binerode b matrix)
+(img_save b "out/close.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/thing.jpg">in/thing.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/open.jpg">out/open.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/close.jpg">out/close.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  4 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test12.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/boo.jpg"))
+(img_conv b edge-matrix 3 60)
+(img_bw b 50)
+(img_save b "out/booedge.jpg")
+
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/boo.jpg">in/boo.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/booedge.jpg">out/booedge.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  5 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test13.scm </span>
+(define b1 (img_open "in/a.jpg"))
+(define b2 (img_open "in/b.jpg"))
+(img_bw b1 50)
+(img_bw b2 50)
+(img_binand b1 b2)
+(img_save b1 "out/and.jpg")
+
+(define b1 (img_open "in/a.jpg"))
+(define b2 (img_open "in/b.jpg"))
+(img_bw b1 50)
+(img_bw b2 50)
+(img_binor b1 b2)
+(img_save b1 "out/or.jpg")
+
+(define b1 (img_open "in/a.jpg"))
+(define b2 (img_open "in/b.jpg"))
+(img_bw b1 50)
+(img_bw b2 50)
+(img_binxor b1 b2)
+(img_save b1 "out/xor.jpg")
+
+(define b1 (img_open "in/a.jpg"))
+(define b2 (img_open "in/b.jpg"))
+(img_bw b1 50)
+(img_bw b2 50)
+(img_binsub b1 b2)
+(img_save b1 "out/sub.jpg")
+
+(define b (img_open "in/a.jpg"))
+(img_bw b 50)
+(img_binnot b)
+(img_save b "out/not.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/a.jpg">in/a.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/in/b.jpg">in/b.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/or.jpg">out/or.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/xor.jpg">out/xor.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/and.jpg">out/and.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/not.jpg">out/not.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/sub.jpg">out/sub.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  6 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test14.scm </span>
+(define b1 (img_open "in/boo.jpg"))
+(define b2 (img_open "in/boo.jpg"))
+(img_bw b1 50)
+(img_bw b2 50)
+
+(define matrix '(0 1 0 1 1 1 0 1 0))
+
+(img_binerode b2 matrix)
+(img_binsub b1 b2)
+(img_save b1 "out/morphedge.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/boo.jpg">in/boo.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/morphedge.jpg">out/morphedge.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  7 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test15.scm </span>
+(load "imsh.scm")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i sierra-dith-matrix)
+(img_save i "out/dithgen_sierra.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i sierra2-dith-matrix)
+(img_save i "out/dithgen_sierra2.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i sierralow-dith-matrix)
+(img_save i "out/dithgen_sierralow.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i floyd-dith-matrix)
+(img_save i "out/dithgen_floyd.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i falsefloyd-dith-matrix)
+(img_save i "out/dithgen_falsefloyd.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i jarvis-dith-matrix)
+(img_save i "out/dithgen_jarvis.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i stucki-dith-matrix)
+(img_save i "out/dithgen_stucki.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i atkinson-dith-matrix)
+(img_save i "out/dithgen_atkinson.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_gendith i burkes-dith-matrix)
+(img_save i "out/dithgen_burkes.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_dith i 0)
+(img_save i "out/dith_atkinson.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_dith i 1)
+(img_save i "out/dith_floyd.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_dith i 2)
+(img_save i "out/dith_ordered.jpg")
+
+(define i (img_open "in/stalin.jpg"))
+(img_dith i 3)
+(img_save i "out/dith_random.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/stalin.jpg">in/stalin.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_sierra.jpg">out/dithgen_sierra.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_atkinson.jpg">out/dith_atkinson.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_floyd.jpg">out/dithgen_floyd.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_ordered.jpg">out/dith_ordered.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_falsefloyd.jpg">out/dithgen_falsefloyd.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_sierralow.jpg">out/dithgen_sierralow.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_random.jpg">out/dith_random.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_stucki.jpg">out/dithgen_stucki.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_sierra2.jpg">out/dithgen_sierra2.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_burkes.jpg">out/dithgen_burkes.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_jarvis.jpg">out/dithgen_jarvis.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dith_floyd.jpg">out/dith_floyd.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/dithgen_atkinson.jpg">out/dithgen_atkinson.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  8 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test2.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_conv b emboss-matrix emboss-div emboss-shift)
+(img_save b "out/emboss.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/emboss.jpg">out/emboss.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  9 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test3.scm </span>
+(define b (img_open "in/ngirl.jpg"))
+(img_ch b 3)
+(img_save b "out/ch.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/ch.jpg">out/ch.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  10 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test4.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_conv b edge-matrix 3 60)
+(img_save b "out/edge.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/edge.jpg">out/edge.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  11 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test5.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_grl b 6)
+(img_save b "out/grl.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/grl.jpg">out/grl.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  12 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test6.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_bw b 50)
+(img_conv b edge-matrix 3 40)
+(img_save b "out/bwedge.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/bwedge.jpg">out/bwedge.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  13 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test7.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_bw b 60)
+(img_conv b dilat-matrix dilat-div dilat-shift)
+(img_conv b dilat-matrix dilat-div dilat-shift)
+(img_save b "out/dilat2.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/dilat2.jpg">out/dilat2.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  14 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test8.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_pix b 10 1)
+(img_save b "out/pix1.jpg")
+
+(define b (img_open "in/ngirl.jpg"))
+(img_pix b 5 0)
+(img_save b "out/pix2.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/pix2.jpg">out/pix2.jpg</a>, <a href="https://github.com/bapcyk/imsh/blob/master/src/out/pix1.jpg">out/pix1.jpg</a>, <br/>
+<div style="padding-left:5px;background:brown;color:white;font-family:Courier">
+<h2>Algorithm  15 </h2>
+</div>
+<div style="font:10pt monospace">
+<br/></div>
+<div style="white-space:pre;font:10pt monospace; ;background:wheat;margin:0;padding:0; ;border:dotted 1px darkcyan;color:brown"><span  style="background:white;color:darkcyan"> test9.scm </span>
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_med b 9)
+(img_save b "out/med.jpg")
+</div><br/>
+<span style="color:brown;font:10pt Arial">Input images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/in/ngirl.jpg">in/ngirl.jpg</a>, <br/><span style="color:brown;font:10pt Arial">Output images: </span>
+<a href="https://github.com/bapcyk/imsh/blob/master/src/out/med.jpg">out/med.jpg</a>, <br/>
+</body></html>
