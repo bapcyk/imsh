@@ -1,0 +1,5 @@
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_bw b 50)
+(img_conv b edge-matrix 3 40)
+(img_save b "out/bwedge.jpg")

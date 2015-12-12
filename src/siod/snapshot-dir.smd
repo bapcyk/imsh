@@ -1,0 +1,45 @@
+#!/usr/local/bin/siod -v01,-m2 -*-mode:lisp-*-
+
+;; $Id: snapshot-dir.smd,v 1.1 2001/10/12 22:35:31 gjcarret Exp $
+
+(define (get-positional-arguments)
+  (let ((result nil)
+	(j 0)
+	(arg nil))
+    (while (set! arg (larg-default (cdddr *args*) j))
+      (set! result (cons arg result))
+      (set! j (+ 1 j)))
+    (nreverse result)))
+
+(define (lkey-default-boolean l x d)
+  (cadr (or (assoc (lkey-default l x d)
+		   '(("true" t) ("false" ()) ("1" t) ("0" ())))
+	    (error (string-append x "must be true or false")))))
+    
+
+(define (main)
+  (let ((directories (or (get-positional-arguments)
+			 (error "no directory or file name specified")))
+	(snapshot-file (lkey-default (cdddr *args*) 'output))
+	(old-dbname (lkey-default (cdddr *args*) 'old))
+	(crossdev (lkey-default-boolean (cdddr *args*) 'crossdev "true"))
+	(md5? (lkey-default-boolean (cdddr *args*) 'md5 "true")))
+    (require 'find-files.scm)
+    (let ((info (get-filesystem-snapshots directories
+					  (if old-dbname
+					      (load old-dbname t))
+					  crossdev
+					  md5?)))
+      (cond (snapshot-file
+	     (save-forms snapshot-file info))
+	    ('else
+	     (mapcar (lambda (x)
+		       (writes nil "(")
+		       (print (car x))
+		       (mapcar (lambda (x)
+				 (writes nil " ")
+				 (print x))
+			       (cdr x))
+		       (writes nil ")\n"))
+		     info))))))
+

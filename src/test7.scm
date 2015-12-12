@@ -1,0 +1,6 @@
+(load "imsh.scm")
+(define b (img_open "in/ngirl.jpg"))
+(img_bw b 60)
+(img_conv b dilat-matrix dilat-div dilat-shift)
+(img_conv b dilat-matrix dilat-div dilat-shift)
+(img_save b "out/dilat2.jpg")
