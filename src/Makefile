@@ -1,4 +1,5 @@
 CC = gcc
+7Z = C:\papps\PortableApps\7-ZipPortable\App\7-Zip\7z.exe
 
 SIOD_OBJS = siod/slib.o siod/sliba.o siod/trace.o
 SIOD_LIB = siod/libsiod.a
@@ -40,3 +41,7 @@ clean:
 libfreeimage.a:
 	pexports freeimage.dll | sed "s/^_//" > libfreeimage.d
 	dlltool --add-underscore -d libfreeimage.def -l libfreeimage.a
+
+.PHONY: pkg
+pkg: imsh
+	$(7Z) a imsh.7z imsh.exe FreeImage.dll
